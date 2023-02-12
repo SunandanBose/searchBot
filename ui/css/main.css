@@ -956,6 +956,7 @@ legend {
 }
 
 .s004 form .suggestion-wrap {
+  display: grid;
   padding: 0 15px;
 }
 

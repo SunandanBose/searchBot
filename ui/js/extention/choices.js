@@ -1625,11 +1625,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: '_handleSearch',
 	    value: function _handleSearch(value) {
-	      if (!value) {
+	      if (!value && value.length < 3) {
 	        return;
 	      }
 
-	      var choices = this.store.getChoices();
+	      var choices = this.store.getChoices(value);
 	      var hasUnactiveChoices = choices.some(function (option) {
 	        return !option.active;
 	      });
@@ -1788,6 +1788,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var onEnterKey = function onEnterKey() {
 	        // If enter key is pressed and the input has a value
+			  this.store.getChoices()
 	        if (_this16.isTextElement && target.value) {
 	          var value = _this16.input.value;
 	          var canAddItem = _this16._canAddItem(activeItems, value);
@@ -1920,7 +1921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (this.isTextElement) {
 	        var hasActiveDropdown = this.dropdown.classList.contains(this.config.classNames.activeState);
 	        if (value) {
-
+			  let handleSearch = this._handleSearch(this.input.value);
 	          if (canAddItem.notice) {
 	            var dropdownItem = this._getTemplate('notice', canAddItem.notice);
 	            this.dropdown.innerHTML = dropdownItem.outerHTML;
@@ -3882,8 +3883,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  }, {
 	    key: 'getChoices',
-	    value: function getChoices() {
+	    value: function getChoices(textToSearch) {
 	      var state = this.store.getState();
+		  if (!textToSearch || textToSearch.length < 3){
+			  return state.choices;
+		  }
+		  fetch("http://localhost:8000/search/?search=" + textToSearch)
+			  .then(response => {
+				  return response.json();
+			  })
+			  .then(result => document.getElementById("searchResult").innerHTML = result)
+			  .catch(error => console.log('error', error));
 	      return state.choices;
 	    }
 
