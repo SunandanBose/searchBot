@@ -1850,7 +1850,7 @@
                                     myHeaders.append("Content-Type", "application/json");
 
                                     let [question, answer] = input.split("|")
-
+                                    answer = answer || question
                                     var raw = JSON.stringify({
                                         "question": question,
                                         "answer": answer
