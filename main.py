@@ -35,9 +35,10 @@ async def save(item: Item):
 
 
 def createDB():
-    dropDB()
+    # dropDB()
     sqliteConnection, cursor = connectDB()
     sqlite_create_table_query = '''CREATE TABLE SearchBOT (
+                                id INTEGER PRIMARY KEY AUTOINCREMENT,
                                 question TEXT NOT NULL UNIQUE,
                                 amswer text NOT NULL);'''
     cursor.execute(sqlite_create_table_query)

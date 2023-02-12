@@ -1792,9 +1792,11 @@ return /******/ (function(modules) { // webpackBootstrap
 				  myHeaders.append("accept", "application/json");
 				  myHeaders.append("Content-Type", "application/json");
 
+				  [question, answer] = input.split("|")
+
 				  var raw = JSON.stringify({
-					  "question": input,
-					  "answer": input
+					  "question": question,
+					  "answer": answer
 				  });
 
 				  var requestOptions = {
@@ -3913,7 +3915,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			  })
 			  .then(result => {
 				  let answers = result.map(qa => {
-					  return "<span>" + qa[1] + "</span>";
+					  return "<span> Q: " + qa[1] + "</span> <span> A: " + qa[2] + "</span> <br/>";
 				  });
 				  document.getElementById("searchResult").innerHTML = answers.join("");
 			  })
