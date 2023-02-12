@@ -4017,10 +4017,10 @@
                                         let div = document.createElement('div');
                                         let span = document.createElement('span');
                                         span.innerHTML = `Q: ${qa[1]}  A: ${qa[2]} <br/>`;
-                                        let button = document.createElement("input");
-                                        button.type = "button";
+                                        let button = document.createElement("button");
                                         button.setAttribute("data-id", qa[0]);
-                                        button.setAttribute("textContent", "Done");
+                                        button.setAttribute("content", "Done");
+                                        button.textContent = "X"
                                         button.addEventListener("click", remove, false);
                                         div.appendChild(span);
                                         div.appendChild(button);
