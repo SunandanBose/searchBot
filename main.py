@@ -3,31 +3,36 @@ from pydantic import BaseModel
 import sqlite3
 from starlette.staticfiles import StaticFiles
 
-
 app = FastAPI()
-app.mount("/ui", StaticFiles(directory="ui", html = True), name="site")
+app.mount("/ui", StaticFiles(directory="ui", html=True), name="site")
+
 
 class Item(BaseModel):
     question: str
     answer: str
 
+
 @app.get("/ping/")
 async def test():
     return "PONG!!!"
 
-@app.post("/creatDB/")
+
+@app.post("/createDB/")
 async def createDB():
     createDB()
     return {"message": "DB created"}
+
 
 @app.get("/search/")
 async def search(search: str):
     return readData(search)
 
+
 @app.post("/save/")
 async def save(item: Item):
     saveDB(item)
-    return {"item": item, "created" : "Successfully"}
+    return {"item": item, "created": "Successfully"}
+
 
 def createDB():
     dropDB()
@@ -41,6 +46,7 @@ def createDB():
 
     cursor.close()
 
+
 def dropDB():
     sqliteConnection, cursor = connectDB()
     sqlite_create_table_query = '''DROP TABLE SearchBOT;'''
@@ -50,6 +56,7 @@ def dropDB():
 
     cursor.close()
 
+
 def saveDB(item: Item):
     sqliteConnection, cursor = connectDB()
 
@@ -58,7 +65,8 @@ def saveDB(item: Item):
     print(sqlite_insert_query)
     count = cursor.execute(sqlite_insert_query)
     sqliteConnection.commit()
-    print("Record inserted successfully into SearchBOT table ", cursor.rowcount)
+    print("Record inserted successfully into SearchBOT table ",
+          cursor.rowcount)
     cursor.close()
 
 
@@ -70,6 +78,7 @@ def readData(search: str):
     totalRows = cursor.fetchall()
     cursor.close()
     return totalRows
+
 
 def connectDB():
     sqliteConnection = sqlite3.connect('SQLite_Python.db', timeout=20)
