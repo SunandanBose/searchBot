@@ -4000,6 +4000,11 @@
                         key: 'getChoices',
                         value: function getChoices(textToSearch) {
                             const state = this.store.getState();
+                            function remove() {
+                                let data_id = this.getAttribute('data-id')
+                                fetch('http://localhost:8000/delete/?id=' + data_id, { method: 'DELETE' })
+                                    .then(() => {});
+                            }
                             if (!textToSearch || textToSearch.length < 3) {
                                 return state.choices;
                             }
@@ -4009,9 +4014,21 @@
                                 })
                                 .then(result => {
                                     let answers = result.map(qa => {
-                                        return "<span> Q: " + qa[1] + "</span> <span> A: " + qa[2] + "</span> <br/>";
+                                        let div = document.createElement('div');
+                                        let span = document.createElement('span');
+                                        span.innerHTML = `Q: ${qa[1]}  A: ${qa[2]} <br/>`;
+                                        let button = document.createElement("input");
+                                        button.type = "button";
+                                        button.setAttribute("data-id", qa[0]);
+                                        button.setAttribute("textContent", "Done");
+                                        button.addEventListener("click", remove, false);
+                                        div.appendChild(span);
+                                        div.appendChild(button);
+                                        return div;
                                     });
-                                    document.getElementById("searchResult").innerHTML = answers.join("");
+                                    let resultDiv = document.getElementById("searchResult");
+                                    resultDiv.innerHTML = "";
+                                    resultDiv.append(...answers);
                                 })
                                 .catch(error => console.log('error', error));
                             return state.choices;

@@ -45,7 +45,7 @@ def createDB():
     sqlite_create_table_query = '''CREATE TABLE SearchBOT (
                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                                 question TEXT NOT NULL UNIQUE,
-                                amswer text NOT NULL);'''
+                                answer text NOT NULL);'''
     cursor.execute(sqlite_create_table_query)
     sqliteConnection.commit()
     print("SQLite table created")
@@ -66,10 +66,8 @@ def dropDB():
 def saveDB(item: Item):
     sqliteConnection, cursor = connectDB()
 
-    sqlite_insert_query = f"""INSERT INTO SearchBOT
-                          (question, amswer)  VALUES  ('{item.question}', '{item.answer}')"""
-    print(sqlite_insert_query)
-    count = cursor.execute(sqlite_insert_query)
+    sqlite_insert_query = 'INSERT INTO SearchBOT (question, answer)  VALUES  (?, ?)'
+    cursor.execute(sqlite_insert_query, (item.question, item.answer))
     sqliteConnection.commit()
     print("Record inserted successfully into SearchBOT table ",
           cursor.rowcount)
@@ -79,8 +77,10 @@ def saveDB(item: Item):
 def readData(search: str):
     sqliteConnection, cursor = connectDB()
 
-    sqlite_select_query = f"""SELECT * from SearchBOT where question like '%{search}%' or answer like '%{search}%'"""
-    cursor.execute(sqlite_select_query)
+    print(search)
+    pattern = f"%{search}%"
+    sqlite_select_query = "SELECT * from SearchBOT where question like ? or answer like ?"
+    cursor.execute(sqlite_select_query, (pattern, pattern))
     totalRows = cursor.fetchall()
     cursor.close()
     return totalRows
