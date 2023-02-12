@@ -33,6 +33,11 @@ async def save(item: Item):
     saveDB(item)
     return {"item": item, "created": "Successfully"}
 
+@app.delete("/delete/")
+async def delete(id: int):
+    deleteData(id)
+    return {"id": id, "deleted": "Successfully"}
+
 
 def createDB():
     # dropDB()
@@ -79,6 +84,16 @@ def readData(search: str):
     totalRows = cursor.fetchall()
     cursor.close()
     return totalRows
+
+def deleteData(idToDelete: int):
+    sqliteConnection, cursor = connectDB()
+
+    sqlite_delete_query = f"""DELETE from SearchBOT where id = {idToDelete}"""
+    cursor.execute(sqlite_delete_query)
+    sqliteConnection.commit()
+    print(f"Record {idToDelete} deleted successfully ")
+    cursor.close()
+    
 
 
 def connectDB():
