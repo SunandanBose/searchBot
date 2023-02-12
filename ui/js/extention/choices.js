@@ -1787,14 +1787,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 
 	      var onEnterKey = function onEnterKey() {
+			  function saveIdea(input) {
+				  var myHeaders = new Headers();
+				  myHeaders.append("accept", "application/json");
+				  myHeaders.append("Content-Type", "application/json");
+
+				  var raw = JSON.stringify({
+					  "question": input,
+					  "answer": input
+				  });
+
+				  var requestOptions = {
+					  method: 'POST',
+					  headers: myHeaders,
+					  body: raw,
+					  redirect: 'follow'
+				  };
+
+				  fetch("http://localhost:8000/save/", requestOptions)
+					  .catch(error => console.log('error', error));
+			  }
 	        // If enter key is pressed and the input has a value
-			  this.store.getChoices()
 	        if (_this16.isTextElement && target.value) {
 	          var value = _this16.input.value;
 	          var canAddItem = _this16._canAddItem(activeItems, value);
-
 	          // All is good, add
-	          if (canAddItem.response) {
+				saveIdea(value)
+				if (canAddItem.response) {
 	            if (hasActiveDropdown) {
 	              _this16.hideDropdown();
 	            }
