@@ -79,7 +79,7 @@ def saveDB(item: Item):
 def readData(search: str):
     sqliteConnection, cursor = connectDB()
 
-    sqlite_select_query = f"""SELECT * from SearchBOT where question like '%{search}%'"""
+    sqlite_select_query = f"""SELECT * from SearchBOT where question like '%{search}%' or answer like '%{search}%'"""
     cursor.execute(sqlite_select_query)
     totalRows = cursor.fetchall()
     cursor.close()
