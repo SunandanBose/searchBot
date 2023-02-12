@@ -97,5 +97,4 @@ def deleteData(idToDelete: int):
 def connectDB():
     sqliteConnection = sqlite3.connect('SQLite_Python.db', timeout=20)
     cursor = sqliteConnection.cursor()
-    print("Connected to SQLite")
     return [sqliteConnection, cursor]
