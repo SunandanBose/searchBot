@@ -44,7 +44,7 @@ def createDB():
     sqliteConnection, cursor = connectDB()
     sqlite_create_table_query = '''CREATE TABLE SearchBOT (
                                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                question TEXT NOT NULL UNIQUE,
+                                question TEXT NOT NULL,
                                 answer text NOT NULL);'''
     cursor.execute(sqlite_create_table_query)
     sqliteConnection.commit()
