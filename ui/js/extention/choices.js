@@ -3911,7 +3911,12 @@ return /******/ (function(modules) { // webpackBootstrap
 			  .then(response => {
 				  return response.json();
 			  })
-			  .then(result => document.getElementById("searchResult").innerHTML = result)
+			  .then(result => {
+				  let answers = result.map(qa => {
+					  return "<span>" + qa[1] + "</span>";
+				  });
+				  document.getElementById("searchResult").innerHTML = answers.join("");
+			  })
 			  .catch(error => console.log('error', error));
 	      return state.choices;
 	    }
