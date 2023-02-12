@@ -76,8 +76,6 @@ def saveDB(item: Item):
 
 def readData(search: str):
     sqliteConnection, cursor = connectDB()
-
-    print(search)
     pattern = f"%{search}%"
     sqlite_select_query = "SELECT * from SearchBOT where question like ? or answer like ?"
     cursor.execute(sqlite_select_query, (pattern, pattern))

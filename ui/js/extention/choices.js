@@ -4016,7 +4016,11 @@
                                     let answers = result.map(qa => {
                                         let div = document.createElement('div');
                                         let span = document.createElement('span');
-                                        span.innerHTML = `Q: ${qa[1]}  A: ${qa[2]} <br/>`;
+                                        if (qa[1] === qa[2]){
+                                            span.innerHTML = `A: ${qa[2]} <br/>`;
+                                        } else {
+                                            span.innerHTML = `Q: ${qa[1]}  A: ${qa[2]} <br/>`;
+                                        }
                                         let button = document.createElement("button");
                                         button.setAttribute("data-id", qa[0]);
                                         button.setAttribute("content", "Done");
