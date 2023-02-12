@@ -1849,7 +1849,7 @@
                                     myHeaders.append("accept", "application/json");
                                     myHeaders.append("Content-Type", "application/json");
 
-                                    [question, answer] = input.split("|")
+                                    let [question, answer] = input.split("|")
 
                                     var raw = JSON.stringify({
                                         "question": question,
