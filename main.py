@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import sqlite3
+from starlette.staticfiles import StaticFiles
+
 
 app = FastAPI()
+app.mount("/ui", StaticFiles(directory="ui", html = True), name="site")
 
 class Item(BaseModel):
     question: str
