@@ -19,6 +19,7 @@ async def test():
 
 @app.post("/createDB/")
 async def createDB():
+    dropDB()
     createDB()
     return {"message": "DB created"}
 

@@ -1849,11 +1849,11 @@
                                     myHeaders.append("accept", "application/json");
                                     myHeaders.append("Content-Type", "application/json");
 
-                                    let [question, answer] = input.split("|")
+                                    let [question, answer] = input.split(/:(.*)/s)
                                     answer = answer || question
                                     var raw = JSON.stringify({
-                                        "question": question,
-                                        "answer": answer
+                                        "question": question.trim(),
+                                        "answer": answer.trim()
                                     });
 
                                     var requestOptions = {
