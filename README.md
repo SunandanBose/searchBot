@@ -1,5 +1,17 @@
 # Search BOT
 
+### To run the app do
+```
+./setup.sh
+
+# Create db
+curl -X 'POST' \
+  'http://localhost:8000/createDB/' \
+  -H 'accept: application/json' \
+  -d ''
+```
+
+
 ### Start application on laptop start
 - Update SearchBOT_startup_Script.plist and setup.sh
 - copy the file to ```/Library/LaunchDaemons/```
