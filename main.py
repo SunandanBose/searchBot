@@ -2,8 +2,18 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import sqlite3
 from starlette.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+
+origins =["*"]
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.mount("/ui", StaticFiles(directory="ui", html=True), name="site")
 
 
