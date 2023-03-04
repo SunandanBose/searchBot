@@ -6,7 +6,7 @@
 
 # Create db
 curl -X 'POST' \
-  'http://localhost:8000/createDB/' \
+  'http://localhost:8085/createDB/' \
   -H 'accept: application/json' \
   -d ''
 ```

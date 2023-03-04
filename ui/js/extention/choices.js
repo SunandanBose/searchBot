@@ -1863,7 +1863,7 @@
                                         redirect: 'follow'
                                     };
 
-                                    fetch("http://localhost:8000/save/", requestOptions)
+                                    fetch("http://localhost:8085/save/", requestOptions)
                                         .catch(error => console.log('error', error));
                                 }
 
@@ -4002,13 +4002,13 @@
                             const state = this.store.getState();
                             function remove() {
                                 let data_id = this.getAttribute('data-id')
-                                fetch('http://localhost:8000/delete/?id=' + data_id, { method: 'DELETE' })
+                                fetch('http://localhost:8085/delete/?id=' + data_id, { method: 'DELETE' })
                                     .then(() => {});
                             }
                             if (!textToSearch || textToSearch.length < 3) {
                                 return state.choices;
                             }
-                            fetch("http://localhost:8000/search/?search=" + textToSearch)
+                            fetch("http://localhost:8085/search/?search=" + textToSearch)
                                 .then(response => {
                                     return response.json();
                                 })
